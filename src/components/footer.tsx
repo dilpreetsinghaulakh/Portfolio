@@ -27,7 +27,7 @@ export default function Footer() {
               </div>
             </div>
             <h3 className="h-1/4 text-right font-jetBrain text-slate-400 font-light  w-full m-0 p-0 left-0 pb-4 invisible sm:visible">
-              ©️ 2023 Dilpreet Singh, as personal
+              2024 Dilpreet Singh
             </h3>
           </div>
         </div>
