@@ -19,6 +19,9 @@ module.exports = {
         },
         tirtiaty: "#262F58",
       },
+      fontFamily: {
+        sans: ["Space Grotesk", "sans-serif"],
+      },
     },
   },
   plugins: [],
