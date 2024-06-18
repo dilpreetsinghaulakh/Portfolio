@@ -22,6 +22,9 @@ module.exports = {
       fontFamily: {
         sans: ["Space Grotesk", "sans-serif"],
       },
+      width: {
+        "main-content": "calc(100vw-2rem)",
+      },
     },
   },
   plugins: [],
