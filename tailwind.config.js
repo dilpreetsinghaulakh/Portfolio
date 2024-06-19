@@ -23,7 +23,7 @@ module.exports = {
         sans: ["Space Grotesk", "sans-serif"],
       },
       width: {
-        "main-content": "calc(100vw-2rem)",
+        "main-content": "calc(100vw - 2rem)",
       },
     },
   },
