@@ -27,7 +27,7 @@ export default function Header() {
       <header className="border-b border-tirtiaty w-full h-24 xl:h-36 flex items-center justify-between">
         <a
           href="/"
-          className="w-14 h-14 xl:w-20 xl:h-20 ml-8 xl:ml-14 block text-seconday-100"
+          className="w-14 h-14 xl:w-20 xl:h-20 ml-8 xl:ml-14 block text-secondary-100"
         >
           <Logo />
         </a>

@@ -13,7 +13,7 @@ module.exports = {
       colors: {
         background: "#04081A",
         primary: "#FFFFFF",
-        seconday: {
+        secondary: {
           100: "#D1D5E7",
           200: "#D4DDFF",
         },
