@@ -7,3 +7,30 @@
 body {
   @apply bg-background text-white;
 }
+
+.glass-box {
+  position: relative;
+  background-image: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(146, 146, 146, 0.15) 100%
+  );
+  z-index: 1;
+}
+
+.glass-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(125deg, #ffffff80, #51515180);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  padding: 1px;
+  z-index: -1;
+}
