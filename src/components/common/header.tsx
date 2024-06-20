@@ -1,5 +1,5 @@
 "use client";
-import Logo from "../../public/logo.svg";
+import Logo from "../../../public/logo.svg";
 
 export default function Header() {
   const MenuIcon = (
