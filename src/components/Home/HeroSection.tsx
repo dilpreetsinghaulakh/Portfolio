@@ -150,8 +150,8 @@ export default function HeroSection() {
   }; // Returns Heading and Subheading with predefined classes
 
   return (
-    <section className="h-[calc(100dvh-9rem)] flex items-center ">
-      <div className="absolute -z-10 bottom-0 left-0 w-screen flex justify-center">
+    <section className="h-[calc(100vh-6rem)] xl:h-[calc(100vh-9rem)] flex items-center ">
+      <div className="absolute -z-10 bottom-0 left-0 w-screen flex justify-center overflow-hidden">
         <Background />
       </div>
       <div className="flex flex-col gap-8 xl:-mt-20">
