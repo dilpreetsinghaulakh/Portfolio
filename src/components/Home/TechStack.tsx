@@ -44,7 +44,7 @@ export default function TechStack() {
           ))}
         </div>
         <button
-          className="flex items-center justify-center gap-2 mt-4"
+          className="flex items-center justify-center gap-2 mt-4 active:scale-95 transition"
           onClick={() => {
             handleInfoButton({
               icons,
@@ -140,7 +140,7 @@ export default function TechStack() {
           className="max-w-6xl w-full min-h-[70%] mx-4 relative flex flex-col justify-between items-center gap-10 p-8 py-16 rounded-3xl border-white/10 opacity-0 transition duration-1000"
         >
           <button
-            className="absolute top-4 right-4 bg-white/10 p-2 rounded-full"
+            className="absolute top-4 right-4 bg-white/10 p-2 rounded-full active:scale-95 transition"
             onClick={() => {
               setOverlayIsOpen(false);
               document.body.style.overflow = "auto";
@@ -148,6 +148,7 @@ export default function TechStack() {
           >
             <X className="stroke-2" />
           </button>
+          {/* close button */}
           <div className="flex flex-col items-center gap-6">
             <div className="flex gap-6">
               {icons.map((icon, index) => (
