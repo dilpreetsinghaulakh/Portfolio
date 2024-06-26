@@ -69,30 +69,28 @@ export default function Projects() {
     link: string;
   }) {
     return (
-      <div className="flex flex-col items-center justify-center h-full max-w-[100vw]">
-        <div className="flex flex-col items-center gap-8">
-          <img
-            src={image}
-            alt={title}
-            className="max-w-[90vw] max-h-[60vh] rounded"
-          />
+      <div className="flex flex-col items-center gap-8 justify-center h-full max-w-[100vw]">
+        <img
+          src={image}
+          alt={title}
+          className="max-w-[90vw] max-h-[60vh] rounded"
+        />
 
-          <h1 className="text-3xl">{title}</h1>
-          <p className="glass-box px-4 py-1 rounded-lg font-light">
-            {keyTechnologies.join(" • ")}
-          </p>
-          <button
-            onClick={() => {
-              handleInfoButton({ title, description, link }); // open overlay
-            }}
-            className="flex items-center gap-2 text-xl font-bold"
-          >
-            Know more
-            <div className="w-8 h-8 rounded-full glass-box p-1">
-              <Plus className="stroke-2" />
-            </div>
-          </button>
-        </div>
+        <h1 className="text-3xl">{title}</h1>
+        <p className="glass-box px-4 py-1 rounded-lg font-light">
+          {keyTechnologies.join(" • ")}
+        </p>
+        <button
+          onClick={() => {
+            handleInfoButton({ title, description, link }); // open overlay
+          }}
+          className="flex items-center gap-2 text-xl font-bold"
+        >
+          Know more
+          <div className="w-8 h-8 rounded-full glass-box p-1">
+            <Plus className="stroke-2" />
+          </div>
+        </button>
       </div>
     );
   }
@@ -239,6 +237,29 @@ export default function Projects() {
           {projects.map((project, index) => (
             <ProjectGroup key={index} {...project} />
           ))}
+        </div>
+        <div className="px-8 xl:px-32 flex flex-col items-center gap-8 justify-center h-full max-w-[100vw]">
+          <a
+            href="https://github.com/dilpreetsinghaulakh"
+            target="blank"
+            className="flex items-center justify-center active:scale-105 transition"
+          >
+            <img
+              src="/gradient_box.svg"
+              alt="{title}"
+              className="max-w-[90vw] max-h-[60vh] rounded"
+            />
+            <h1 className="text-4xl absolute flex gap-2 items-center">
+              Github <ExternalLink className="h-8 w-8" />
+            </h1>
+          </a>
+          <h2 className="text-2xl text-center">Find more on my Github</h2>
+          <p className="text-center text-sm max-w-2xl">
+            There are various more projects on my Github which were not
+            noteworthy enough to include here. <br />
+            Also I am always working on something new so you may also find
+            something new too!
+          </p>
         </div>
       </>
     );
