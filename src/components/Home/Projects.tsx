@@ -38,9 +38,10 @@ export default function Projects() {
   } // calculate the offset of the sticky child
 
   useEffect(() => {
+    setHorizontalWidth(calculateContentWidth());
+
     window.addEventListener("load", () => {
       setHorizontalWidth(calculateContentWidth());
-      console.log("Content Width", horizontalWidth);
       setScrollOffset(calculateOffset());
     }); // initial load if the page is already scrolled
 
