@@ -3,6 +3,7 @@ import { use, useEffect, useRef, useState } from "react";
 import Logo from "../../../public/logo.svg";
 import Overlay from "./Overlay";
 import { X } from "react-feather";
+import { usePathname } from "next/navigation";
 
 function MenuContent({
   setIsMenuOpen,
@@ -113,13 +114,20 @@ export default function Header() {
   return (
     <>
       <header className="border-b border-tertiary w-full h-24 xl:h-36 flex items-center justify-between">
-        <a
-          href="/"
-          aria-label="Home page link"
-          className="w-14 h-14 xl:w-20 xl:h-20 ml-8 xl:ml-14 block text-secondary-100"
-        >
-          <Logo />
-        </a>
+        <div className="flex items-center gap-4">
+          <a
+            href="/"
+            aria-label="Home page link"
+            className="w-14 h-14 xl:w-20 xl:h-20 ml-8 xl:ml-14 block text-secondary-100"
+          >
+            <Logo />
+          </a>
+          {usePathname() !== "/" ? (
+            <h1 className="hidden sm:block text-lg font-light text-primary-100 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
+              {usePathname()}
+            </h1>
+          ) : null}
+        </div>
 
         <div className="flex justify-end h-full font-bold text-xl xl:text-2xl">
           <div className="hidden h-full xl:flex items-center space-x-4 px-20 border-l border-tertiary">
