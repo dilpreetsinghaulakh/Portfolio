@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
 
 export const metadata: Metadata = {
   title: "Dilpreet Singh",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <Header />
         <main className="w-main-content max-w-6xl mx-auto">{children}</main>
+        <Footer />
       </body>
     </html>
   );
