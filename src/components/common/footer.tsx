@@ -8,7 +8,7 @@ export default function Footer() {
         </p>
 
         <p
-          className="absolute -bottom-[8vw] text-[14.5vw] select-none font-black bg-clip-text text-transparent bg-gradient-to-b from-white/80 to-white/20"
+          className="absolute -bottom-[8vw] text-[14.5vw] select-none cursor-default font-black bg-clip-text text-transparent bg-gradient-to-b from-white/80 to-white/20"
           style={{ WebkitTextStroke: "1px #ffffff" }}
         >
           Dilpreet Singh
