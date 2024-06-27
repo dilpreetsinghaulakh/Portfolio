@@ -17,7 +17,7 @@ module.exports = {
           100: "#D1D5E7",
           200: "#D4DDFF",
         },
-        tirtiaty: "#262F58",
+        tertiary: "#262F58",
       },
       fontFamily: {
         sans: ["Space Grotesk", "sans-serif"],
