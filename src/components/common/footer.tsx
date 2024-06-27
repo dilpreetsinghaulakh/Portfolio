@@ -7,12 +7,12 @@ export default function Footer() {
           © {new Date().getFullYear()} Dilpreet Singh. All rights reserved.
         </p>
 
-        <h3
+        <p
           className="absolute -bottom-[8vw] text-[14.5vw] select-none font-black bg-clip-text text-transparent bg-gradient-to-b from-white/80 to-white/20"
           style={{ WebkitTextStroke: "1px #ffffff" }}
         >
           Dilpreet Singh
-        </h3>
+        </p>
       </footer>
     </>
   );
