@@ -68,8 +68,11 @@ function MenuContent({
       <Link href="/" delay={0}>
         Home
       </Link>
-      <Link href="/contact" delay={300}>
+      <Link href="/contact" delay={100}>
         Contact
+      </Link>
+      <Link href="/about" delay={200}>
+        About
       </Link>
     </div>
   );
