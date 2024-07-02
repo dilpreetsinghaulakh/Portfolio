@@ -1,4 +1,4 @@
-import { ArrowDown } from "react-feather";
+import { Download } from "react-feather";
 
 export default function AboutMeContent() {
   return (
@@ -29,7 +29,7 @@ export default function AboutMeContent() {
         rel="noreferrer"
         className="flex gap-2 items-center border border-white/5 w-fit p-2 rounded-lg hover:bg-white/5"
       >
-        <ArrowDown /> Resume
+        <Download /> Resume
       </a>
     </div>
   );
