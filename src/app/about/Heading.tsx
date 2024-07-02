@@ -8,7 +8,6 @@ export default function Heading({ aboutWho }: { aboutWho: string }) {
       if (isInitialMount.current) {
         // Skip the first render
         isInitialMount.current = false;
-        console.log("Initial render");
         return;
       } else if (aboutWhoTextRef.current) {
         aboutWhoTextRef.current.style.filter = "blur(1px)";
