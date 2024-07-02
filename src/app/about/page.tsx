@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState } from "react";
 import ToggleButton from "./ToggleBtn";
 import Heading from "./Heading";
+import Content from "./ContentHandler";
 
 export default function About() {
   const [aboutWho, setAboutWho] = useState("Me"); // Me or This Project
@@ -16,6 +17,7 @@ export default function About() {
       <main className="flex flex-col gap-8 items-center py-8">
         <ToggleButton aboutWho={aboutWho} setAboutWho={setAboutWho} />
         <Heading aboutWho={aboutWho} />
+        <Content aboutWho={aboutWho} />
       </main>
     </>
   );
