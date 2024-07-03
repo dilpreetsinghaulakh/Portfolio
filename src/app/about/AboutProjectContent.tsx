@@ -116,7 +116,7 @@ export default function AboutProjectContent() {
                 className="flex flex-col gap-2 items-center"
                 onClick={() => handleCopyToClipboard("#04081A")}
               >
-                <div className="h-8 w-8 xl:h-10 xl:w-10 rounded-full ring ring-tertiary/50 bg-background" />
+                <div className="h-8 w-8 xl:h-10 xl:w-10 rounded-full ring ring-tertiary/50 border-2 border-tertiary bg-background" />
                 <p className="text-xs">#04081A</p>
               </button>
               <div
