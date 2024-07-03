@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ArrowRight, ArrowUpRight, Clipboard, GitHub } from "react-feather";
+import { ArrowUpRight, Clipboard } from "react-feather";
 
 export default function AboutProjectContent() {
   const copiedAlertRef = useRef<HTMLDivElement>(null);
@@ -52,41 +52,46 @@ export default function AboutProjectContent() {
         </p>
       </div>
       <div>
-        <h2 className="text-3xl font-light mb-2">Basics</h2>
-        <p>
-          <span className="font-bold text-secondary-200">Font </span>
-          <a
-            href="https://fonts.google.com/specimen/Space+Grotesk"
-            className="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Space Grotesk
-          </a>
-          (Yup, only one font, Google Fonts)
-        </p>
-        <p>
-          <span className="font-bold text-secondary-200">Icons </span>
-          <a
-            href="https://feathericons.com/"
-            className="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Feather Icons
-          </a>
-        </p>
-        <p>
-          <span className="font-bold text-secondary-200">Contact Form </span>
-          <a
-            href="https://formspree.io/"
-            className="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Formspree
-          </a>
-        </p>
+        <h1 className="text-4xl font-thin text-secondary-200 mb-2">Documentation</h1>
+        <h2 className="text-3xl font-light text-secondary-100 mb-2">Basics</h2>
+        <div>
+          <h3 className="text-xl mb-2">External Resources</h3>
+          <p>
+            <span className="font-bold text-secondary-200">Font </span>
+            <a
+              href="https://fonts.google.com/specimen/Space+Grotesk"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Space Grotesk
+            </a>
+            (Yup, only one font, Google Fonts)
+          </p>
+          <p>
+            <span className="font-bold text-secondary-200">Icons </span>
+            <a
+              href="https://feathericons.com/"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Feather Icons
+            </a>
+          </p>
+          <p>
+            <span className="font-bold text-secondary-200">Contact Form </span>
+            <a
+              href="https://formspree.io/"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Formspree
+            </a>
+          </p>
+        </div>
+        {/* This section contains the basic information about the project */}
         <div>
           <h3 className="text-xl mt-4 mb-2">Colors</h3>
           <div className="flex">
@@ -127,8 +132,20 @@ export default function AboutProjectContent() {
               </div>
             </div>
           </div>
-          <p className="mt-1">and other colors are the default ones in Tailwind CSS.</p>
+          <p className="mt-1">
+            and other colors are the default ones in Tailwind CSS.
+          </p>
         </div>
+        {/* This section contains the color codes used in the project */}
+        <div>
+          <h2 className="text-xl mt-4 mb-2">Technologies</h2>
+          <ul className="list-disc list-inside">
+            <li>NextJS</li>
+            <li>Tailwind CSS</li>
+            <li>TypeScript</li>
+          </ul>
+        </div>
+        {/* This section contains the technologies used in the project */}
       </div>
     </div>
   );
