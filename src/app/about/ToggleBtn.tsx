@@ -12,6 +12,7 @@ export default function ToggleButton({
 
   return (
     <button
+      aria-label="Toggle between 'Me' and 'This Project'"
       onClick={() => {
         setAboutWho(aboutWho === "Me" ? "This Project" : "Me");
       }}
