@@ -1,3 +1,4 @@
+"use client";
 import CodeSnippet from "@/components/common/CodeBlock";
 import SmallCodeSnippet from "@/components/common/SmallCodeBlock";
 import Image from "next/image";
@@ -160,9 +161,9 @@ export default function Documentation() {
   function Header() {
     return (
       <div>
-        <h3 className="text-xl mb-2">Header</h3>
+        <h3 className="text-2xl mb-2">Header</h3>
         <ImageWithCaption
-          src="Documentation/Header.svg"
+          src="/Documentation/header.svg"
           height={156}
           width={1512}
           caption="Header Component representation"
@@ -198,9 +199,9 @@ export default function Documentation() {
   function Footer() {
     return (
       <div>
-        <h3 className="text-xl mb-2">Footer</h3>
+        <h3 className="text-2xl mb-2 mt-4">Footer</h3>
         <ImageWithCaption
-          src="Documentation/Footer.svg"
+          src="/Documentation/footer.svg"
           height={156}
           width={1512}
           caption="Footer Component representation"
@@ -215,7 +216,8 @@ export default function Documentation() {
         <ul className="list-disc list-inside mt-2">
           <li>
             The dynamic year is achieved by new{" "}
-            <SmallCodeSnippet code="Date().getFullYear()" language="JS" /> method
+            <SmallCodeSnippet code="Date().getFullYear()" language="JS" />{" "}
+            method
           </li>
           <li>
             There is a div placed above the footer absolutely to give a body
@@ -226,7 +228,7 @@ export default function Documentation() {
             <SmallCodeSnippet
               code="bg-clip-text text-transparent bg-gradient-to-b from-white/80 to-white/20"
               language="HTML"
-            />
+            />{" "}
             classes.
           </li>
           <li>
