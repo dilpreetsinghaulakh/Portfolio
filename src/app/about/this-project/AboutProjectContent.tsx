@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "react-feather";
-import Documentation from "./Documentation";
+import Documentation from "../Documentation";
 
 export default function AboutProjectContent() {
   return (
