@@ -190,9 +190,9 @@ export default function HeroSection() {
           Dilpreet Singh
         </h1>
         <p className="text-secondary-200">
-          <p id="anim-appear" className="inline opacity-0">
-            a{" "}
-          </p>
+          <span id="anim-appear" className="inline opacity-0">
+            a
+          </span>
           <span
             id="anim-appear"
             className="text-4xl text-white ml-2 inline-block opacity-0"
