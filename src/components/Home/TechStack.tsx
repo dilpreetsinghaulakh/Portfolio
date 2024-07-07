@@ -1,11 +1,13 @@
 "use client";
-import { Plus, X, XCircle } from "react-feather";
+import { Plus, X } from "react-feather";
 import Overlay from "../common/Overlay";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
 function OverlayContent({
   overlayInnerContentRef,
@@ -81,7 +83,7 @@ function OverlayContent({
         className="max-w-6xl m-auto w-full min-h-[70%] relative flex flex-col justify-between items-center gap-10 p-8 py-16 rounded-3xl border border-white/10 bg-background" // transition-opacity duration-500" // translate-y-full transition duration-700"
       >
         <button
-          className="absolute top-4 right-4 bg-white/10 p-2 rounded-full active:scale-95 transition"
+          className="absolute top-4 right-4 bg-white/10 p-2 rounded-full"
           onClick={() => handleOverlayClose()}
         >
           <X className="stroke-2" />
@@ -120,11 +122,75 @@ function OverlayContent({
 }
 
 export default function TechStack() {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [overlayIsOpen, setOverlayIsOpen] = useState(false);
   const [overlayContentState, setOverlayContentState] =
     useState<ReactNode>(null);
   const overlayContentRef = useRef<HTMLDivElement>(null);
   const overlayInnerContentRef = useRef<HTMLDivElement>(null);
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      gsap.utils.toArray("#anim-scroll-top").map((element: any) => {
+        gsap.fromTo(
+          element,
+          {
+            y: "50%",
+            opacity: 0,
+            willChange: "transform opacity",
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+              trigger: element,
+              toggleActions: "play none none reverse",
+              start: "top 85%",
+            },
+          }
+        );
+      });
+
+      window.addEventListener("scroll", () => {
+        gsap.utils.toArray("#anim-scroll-top").map((element: any) => {
+          if (sectionRef.current) {
+            if (
+              sectionRef.current.offsetTop + sectionRef.current.offsetHeight <
+                window.scrollY ||
+              window.scrollY == 0
+            ) {
+              console.log("Triggered");
+              gsap.fromTo(
+                element,
+                {
+                  y: "50%",
+                  opacity: 0,
+                  willChange: "transform opacity",
+                },
+                {
+                  y: 0,
+                  opacity: 1,
+                  scrollTrigger: {
+                    trigger: element,
+                    toggleActions: "play none none reverse",
+                    start: "top 85%",
+                  },
+                }
+              );
+            }
+          }
+        });
+      });
+    }
+  }, [isVisible]);
+
+  useEffect(() => {}, [overlayIsOpen]);
 
   function TechGroup({
     icons,
@@ -142,7 +208,7 @@ export default function TechStack() {
     learningSourceIcon: string;
   }) {
     return (
-      <div className="flex flex-col items-center">
+      <div id="anim-scroll-top" className="flex flex-col items-center">
         <div className="flex gap-8 xl:gap-12 p-6 xl:p-8 rounded-3xl glass-box">
           {icons.map((icon, index) => (
             <div key={index} className="w-12 h-12 xl:w-16 xl:h-16">
@@ -161,7 +227,7 @@ export default function TechStack() {
           ))}
         </div>
         <button
-          className="flex items-center justify-center gap-2 mt-4 active:scale-95 transition"
+          className="flex items-center justify-center gap-2 mt-4"
           onClick={() => {
             handleInfoButton({
               iconAssets,
@@ -211,6 +277,7 @@ export default function TechStack() {
       />
     );
     setOverlayIsOpen(true);
+    ScrollTrigger.refresh();
   }
 
   const iconAssets: { [key: string]: { src: string; alt: string } } = {
@@ -267,8 +334,10 @@ export default function TechStack() {
   ];
 
   return (
-    <section className="py-16">
-      <h1 className="text-4xl font-bold text-center mb-12">Tech Stack</h1>
+    <section ref={sectionRef} className="py-16">
+      <h1 id="anim-scroll-top" className="text-4xl font-bold text-center mb-12">
+        Tech Stack
+      </h1>
       <div className="flex flex-col gap-10">
         {techSkillSets.map((group, index) => (
           <TechGroup
