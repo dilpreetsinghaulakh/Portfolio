@@ -1,10 +1,73 @@
+"use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { useEffect, useLayoutEffect, useState } from "react";
+
+gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger);
+
 export default function HeroSection() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      gsap.fromTo(
+        "#background",
+        {
+          opacity: 0,
+          willChange: "opacity",
+        },
+        {
+          opacity: 1,
+          duration: 1.5,
+        }
+      );
+
+      gsap.utils.toArray("#anim-appear-top").forEach((element: any, index) => {
+        gsap.fromTo(
+          element,
+          {
+            y: "50%",
+            opacity: 0,
+            willChange: "transform opacity",
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            delay: 1 + index * 0.5,
+          }
+        );
+      });
+
+      gsap.fromTo(
+        "#anim-appear",
+        {
+          opacity: 0,
+          willChange: "opacity",
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          delay: 2,
+          stagger: 0.2,
+        }
+      );
+    }
+  }, [isVisible]);
+
   const Background = () => {
-    return (
+    return isVisible ? (
       <>
         {/* Desktop Background */}
         <svg
           className="w-full h-full overflow-visible hidden xl:block max-w-7xl"
+          id="background"
           viewBox="0 0 1512 958"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -62,6 +125,7 @@ export default function HeroSection() {
         {/* Mobile Background */}
         <svg
           className="w-full h-full overflow-visible xl:hidden max-w-2xl max-h-screen"
+          id="background"
           viewBox="0 0 393 849"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -113,27 +177,42 @@ export default function HeroSection() {
           </defs>
         </svg>
       </>
-    );
+    ) : null;
   }; // Returns SVGs for Desktop and Mobile Background with predefined classes
 
   const Heading = () => {
     return (
       <div className="text-lg font-bold flex flex-col gap-4">
-        <h3 className="text-secondary-100">Hey, I'm</h3>
-        <h1 className="text-6xl xl:text-8xl">Dilpreet Singh</h1>
-        <h3 className="text-secondary-200">
-          a{" "}
-          <span className="text-4xl text-white ml-2 inline-block">Web Dev</span>
-          <span className="text-3xl mx-2">+</span>
-          <span className="text-4xl text-white">Student</span>
+        <h3 id="anim-appear-top" className="text-secondary-100">
+          Hey, I'm
         </h3>
+        <h1 id="anim-appear-top" className="text-6xl xl:text-8xl">
+          Dilpreet Singh
+        </h1>
+        <p className="text-secondary-200">
+          <p id="anim-appear" className="inline">
+            a{" "}
+          </p>
+          <span
+            id="anim-appear"
+            className="text-4xl text-white ml-2 inline-block"
+          >
+            Web Dev
+          </span>
+          <span id="anim-appear" className="text-3xl mx-2">
+            +
+          </span>
+          <span id="anim-appear" className="text-4xl text-white">
+            Student
+          </span>
+        </p>
       </div>
     );
   };
 
   const Subheading = () => {
     return (
-      <p className="text-secondary-100 xl:text-lg">
+      <p id="anim-appear" className="text-secondary-100 xl:text-lg">
         An undergraduate student passionate about web development and UI/UX
         design, eager to create something extraordinary.
       </p>
@@ -141,12 +220,12 @@ export default function HeroSection() {
   };
 
   const Text = () => {
-    return (
+    return isVisible ? (
       <>
         <Heading />
         <Subheading />
       </>
-    );
+    ) : null;
   }; // Returns Heading and Subheading with predefined classes
 
   return (
