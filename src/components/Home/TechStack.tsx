@@ -1,11 +1,128 @@
 "use client";
 import { Plus, X, XCircle } from "react-feather";
 import Overlay from "../common/Overlay";
-import React, { ReactNode, use, useRef, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
+
+function OverlayContent({
+  overlayInnerContentRef,
+  overlayContentRef,
+  setOverlayIsOpen,
+  iconAssets,
+  icons,
+  title,
+  info,
+  learningStatus,
+  learningSourceIcon,
+}: {
+  overlayInnerContentRef: React.RefObject<HTMLDivElement>;
+  overlayContentRef: React.RefObject<HTMLDivElement>;
+  setOverlayIsOpen: (value: boolean) => void;
+  iconAssets: { [key: string]: { src: string; alt: string } };
+  icons: string[];
+  title: string;
+  info: string;
+  learningStatus: string;
+  learningSourceIcon: string;
+}) {
+  useEffect(() => {
+    if (overlayInnerContentRef.current) {
+      gsap.fromTo(
+        overlayInnerContentRef.current,
+        { y: overlayInnerContentRef.current.clientHeight },
+        { y: 0, duration: 0.6, ease: "power2.inOut" }
+      );
+    }
+
+    if (overlayContentRef.current) {
+      overlayContentRef.current.classList.remove("backdrop-blur-none");
+      overlayContentRef.current.classList.add("backdrop-blur-xl");
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      // Clean up when the component is unmounted
+      document.body.style.overflow = "auto";
+    };
+  }, [overlayInnerContentRef, overlayContentRef]);
+
+  function handleOverlayClose() {
+    if (overlayInnerContentRef.current) {
+      gsap.to(overlayInnerContentRef.current, {
+        y: overlayInnerContentRef.current.clientHeight,
+        opacity: 0,
+        filter: "blur(50px)",
+        duration: 0.7,
+        ease: "power2.in",
+      });
+    }
+    if (overlayContentRef.current) {
+      overlayContentRef.current.classList.remove("backdrop-blur-xl");
+      overlayContentRef.current.classList.add("duration-1000");
+      overlayContentRef.current.classList.add("backdrop-blur-none");
+      overlayContentRef.current.classList.add("opacity-0");
+
+      setTimeout(() => {
+        setOverlayIsOpen(false);
+      }, 700);
+    }
+  }
+
+  return (
+    <div
+      ref={overlayContentRef}
+      className="backdrop-blur-none h-full w-full flex items-center transition-all duration-700 py-8 px-2 overflow-y-scroll"
+    >
+      <div
+        ref={overlayInnerContentRef}
+        className="max-w-6xl m-auto w-full min-h-[70%] relative flex flex-col justify-between items-center gap-10 p-8 py-16 rounded-3xl border border-white/10 bg-background" // transition-opacity duration-500" // translate-y-full transition duration-700"
+      >
+        <button
+          className="absolute top-4 right-4 bg-white/10 p-2 rounded-full active:scale-95 transition"
+          onClick={() => handleOverlayClose()}
+        >
+          <X className="stroke-2" />
+        </button>
+        {/* close button */}
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex gap-6">
+            {icons.map((icon, index) => (
+              <img
+                key={index}
+                className="w-12 h-12 xl:w-16 xl:h-16"
+                src={iconAssets[icon].src}
+                alt={iconAssets[icon].alt}
+              />
+            ))}
+          </div>
+          <h1 className="text-2xl font-semibold text-secondary-200 text-center">
+            {title}
+          </h1>
+        </div>
+        <p
+          className="text-lg max-w-4xl text-center"
+          dangerouslySetInnerHTML={{ __html: info }}
+        ></p>
+        <div className="flex flex-col items-center gap-4">
+          <p className="font-semibold text-secondary-200">{learningStatus}</p>
+          <img
+            src={iconAssets[learningSourceIcon].src}
+            alt={iconAssets[learningSourceIcon].alt}
+            className="h-12"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TechStack() {
   const [overlayIsOpen, setOverlayIsOpen] = useState(false);
-  const [overlayContent, setOverlayContent] = useState<ReactNode>(null);
+  const [overlayContentState, setOverlayContentState] =
+    useState<ReactNode>(null);
   const overlayContentRef = useRef<HTMLDivElement>(null);
   const overlayInnerContentRef = useRef<HTMLDivElement>(null);
 
@@ -47,6 +164,7 @@ export default function TechStack() {
           className="flex items-center justify-center gap-2 mt-4 active:scale-95 transition"
           onClick={() => {
             handleInfoButton({
+              iconAssets,
               icons,
               title,
               info,
@@ -62,6 +180,37 @@ export default function TechStack() {
         </button>
       </div>
     );
+  }
+
+  function handleInfoButton({
+    iconAssets,
+    icons,
+    title,
+    info,
+    learningStatus,
+    learningSourceIcon,
+  }: {
+    iconAssets: { [key: string]: { src: string; alt: string } };
+    icons: string[];
+    title: string;
+    info: string;
+    learningStatus: string;
+    learningSourceIcon: string;
+  }) {
+    setOverlayContentState(
+      <OverlayContent
+        overlayContentRef={overlayContentRef}
+        overlayInnerContentRef={overlayInnerContentRef}
+        setOverlayIsOpen={setOverlayIsOpen}
+        iconAssets={iconAssets}
+        icons={icons}
+        title={title}
+        info={info}
+        learningStatus={learningStatus}
+        learningSourceIcon={learningSourceIcon}
+      />
+    );
+    setOverlayIsOpen(true);
   }
 
   const iconAssets: { [key: string]: { src: string; alt: string } } = {
@@ -117,86 +266,6 @@ export default function TechStack() {
     },
   ];
 
-  function handleInfoButton({
-    icons,
-    title,
-    info,
-    learningStatus,
-    learningSourceIcon,
-  }: {
-    icons: string[];
-    title: string;
-    info: string;
-    learningStatus: string;
-    learningSourceIcon: string;
-  }) {
-    setOverlayContent(
-      <div
-        ref={overlayContentRef}
-        className="backdrop-blur-none h-full w-full bg-white/5 transition-all duration-300 flex items-center justify-center"
-      >
-        <div
-          ref={overlayInnerContentRef}
-          className="max-w-6xl w-full min-h-[70%] mx-4 relative flex flex-col justify-between items-center gap-10 p-8 py-16 rounded-3xl border-white/10 opacity-0 transition duration-1000"
-        >
-          <button
-            className="absolute top-4 right-4 bg-white/10 p-2 rounded-full active:scale-95 transition"
-            onClick={() => {
-              setOverlayIsOpen(false);
-              document.body.style.overflow = "auto";
-            }}
-          >
-            <X className="stroke-2" />
-          </button>
-          {/* close button */}
-          <div className="flex flex-col items-center gap-6">
-            <div className="flex gap-6">
-              {icons.map((icon, index) => (
-                <img
-                  key={index}
-                  className="w-12 h-12 xl:w-16 xl:h-16"
-                  src={iconAssets[icon].src}
-                  alt={iconAssets[icon].alt}
-                />
-              ))}
-            </div>
-            <h1 className="text-2xl font-semibold text-secondary-200 text-center">
-              {title}
-            </h1>
-          </div>
-          <p
-            className="text-lg max-w-4xl text-center"
-            dangerouslySetInnerHTML={{ __html: info }}
-          ></p>
-          <div className="flex flex-col items-center gap-4">
-            <p className="font-semibold text-secondary-200">{learningStatus}</p>
-            <img
-              src={iconAssets[learningSourceIcon].src}
-              alt={iconAssets[learningSourceIcon].alt}
-              className="h-12"
-            />
-          </div>
-        </div>
-      </div>
-    );
-
-    setOverlayIsOpen(true);
-
-    setTimeout(() => {
-      overlayContentRef.current?.classList.remove("backdrop-blur-none");
-      overlayContentRef.current?.classList.add("backdrop-blur-md");
-
-      overlayInnerContentRef.current?.classList.remove("opacity-0");
-
-      document.body.style.overflow = "hidden";
-    }, 0); // 0ms delay to make sure the classes are added after the element is rendered
-
-    setTimeout(() => {
-      overlayInnerContentRef.current?.classList.add("bg-background");
-      overlayInnerContentRef.current?.classList.add("border");
-    }, 100); // 100ms delay to have a smooth transition
-  }
-
   return (
     <section className="py-16">
       <h1 className="text-4xl font-bold text-center mb-12">Tech Stack</h1>
@@ -213,7 +282,7 @@ export default function TechStack() {
           />
         ))}
       </div>
-      <Overlay isOpen={overlayIsOpen}>{overlayContent}</Overlay>
+      <Overlay isOpen={overlayIsOpen}>{overlayContentState}</Overlay>
     </section>
   );
 }
