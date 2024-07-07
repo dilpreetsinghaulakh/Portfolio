@@ -66,7 +66,7 @@ export default function HeroSection() {
       <>
         {/* Desktop Background */}
         <svg
-          className="w-full h-full overflow-visible hidden xl:block max-w-7xl"
+          className="w-full h-full overflow-visible hidden xl:block max-w-7xl opacity-0"
           id="background"
           viewBox="0 0 1512 958"
           xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,7 @@ export default function HeroSection() {
 
         {/* Mobile Background */}
         <svg
-          className="w-full h-full overflow-visible xl:hidden max-w-2xl max-h-screen"
+          className="w-full h-full overflow-visible xl:hidden max-w-2xl max-h-screen opacity-0"
           id="background"
           viewBox="0 0 393 849"
           fill="none"
@@ -183,26 +183,26 @@ export default function HeroSection() {
   const Heading = () => {
     return (
       <div className="text-lg font-bold flex flex-col gap-4">
-        <h3 id="anim-appear-top" className="text-secondary-100">
+        <h3 id="anim-appear-top" className="text-secondary-100 opacity-0">
           Hey, I'm
         </h3>
-        <h1 id="anim-appear-top" className="text-6xl xl:text-8xl">
+        <h1 id="anim-appear-top" className="text-6xl xl:text-8xl opacity-0">
           Dilpreet Singh
         </h1>
         <p className="text-secondary-200">
-          <p id="anim-appear" className="inline">
+          <p id="anim-appear" className="inline opacity-0">
             a{" "}
           </p>
           <span
             id="anim-appear"
-            className="text-4xl text-white ml-2 inline-block"
+            className="text-4xl text-white ml-2 inline-block opacity-0"
           >
             Web Dev
           </span>
-          <span id="anim-appear" className="text-3xl mx-2">
+          <span id="anim-appear" className="text-3xl mx-2 opacity-0">
             +
           </span>
-          <span id="anim-appear" className="text-4xl text-white">
+          <span id="anim-appear" className="text-4xl text-white opacity-0">
             Student
           </span>
         </p>
@@ -212,7 +212,7 @@ export default function HeroSection() {
 
   const Subheading = () => {
     return (
-      <p id="anim-appear" className="text-secondary-100 xl:text-lg">
+      <p id="anim-appear" className="text-secondary-100 xl:text-lg opacity-0">
         An undergraduate student passionate about web development and UI/UX
         design, eager to create something extraordinary.
       </p>
