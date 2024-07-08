@@ -30,7 +30,7 @@ export default function AboutMeContent() {
         href="https://drive.google.com/file/d/1SlFyDWMCtnfKcYG-WobBlo39wVB6US-O/view?usp=sharing"
         target="_blank"
         rel="noreferrer"
-        className="flex gap-2 items-center border border-white/5 w-fit p-2 rounded-lg hover:bg-white/5"
+        className="flex gap-2 items-center border border-primary/5 w-fit p-2 rounded-lg hover:bg-primary/5"
       >
         <Download /> Resume
       </a>

@@ -17,7 +17,7 @@ function ContactForm() {
 
   if (!formId) {
     return (
-      <div className="text-center text-lg bg-white/5 border border-white/10 w-full h-96 px-4 flex flex-col items-center justify-center rounded-3xl">
+      <div className="text-center text-lg bg-primary/5 border border-primary/10 w-full h-96 px-4 flex flex-col items-center justify-center rounded-3xl">
         <p>
           The contact form is not available right now. Please try again later.
         </p>
@@ -40,7 +40,7 @@ function ContactForm() {
       reset();
     }, 15000);
     return (
-      <div className="h-96 w-full bg-white/5 border border-white/10 rounded-3xl text-center flex items-center justify-center">
+      <div className="h-96 w-full bg-primary/5 border border-primary/10 rounded-3xl text-center flex items-center justify-center">
         <p>
           Thank you so much for reaching out! I'll get back to you as soon as
           possible.
@@ -49,7 +49,7 @@ function ContactForm() {
     );
   }
   const inputClasses =
-    "w-full bg-white/5 border border-white/10 px-6 py-3 rounded-2xl font-light active:outline-none focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50 focus:border-blue-400 transition-colors duration-200";
+    "w-full bg-primary/5 border border-primary/10 px-6 py-3 rounded-2xl font-light active:outline-none focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50 focus:border-blue-400 transition-colors duration-200";
 
   function customValidation(event: any) {
     // Validating the form before submitting for empty fields
@@ -80,7 +80,7 @@ function ContactForm() {
   return (
     <form
       ref={formRef}
-      className="bg-white/5 border border-white/10 w-full h-96 p-4 rounded-3xl flex flex-col gap-4 items-center"
+      className="bg-primary/5 border border-primary/10 w-full h-96 p-4 rounded-3xl flex flex-col gap-4 items-center"
       onSubmit={customValidation}
     >
       <div className="flex flex-col gap-4 xl:flex-row w-full">
@@ -112,7 +112,7 @@ function ContactForm() {
       />
       <ValidationError prefix="Message" field="message" errors={state.errors} />
       <button
-        className="bg-white text-black w-full py-3 rounded-full font-semibold hover:bg-white/90 active:bg-white/90 outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50 focus:bg-white/90 transition-colors"
+        className="bg-primary text-opposite w-full py-3 rounded-full font-semibold hover:bg-primary/90 active:bg-primary/90 outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50 focus:bg-primary/90 transition-colors"
         type="submit"
         disabled={state.submitting}
       >
@@ -131,12 +131,12 @@ export default function ContactPage() {
       </Head>
       <main className="flex flex-col gap-8 items-center justify-center min-h-[calc(100vh-6rem)] xl:min-h-[calc(100vh-9rem)] py-2">
         <ContactForm />
-        <div className="p-4 border border-white/10 rounded-full flex gap-4 items-center text-sm xl:text-base">
+        <div className="p-4 border border-primary/10 rounded-full flex gap-4 items-center text-sm xl:text-base">
           <div className="w-12 h-12 xl:w-14 xl:h-14 bg-lime-300 text-lime-900 p-4 rounded-full flex items-center justify-center">
             <Mail />
           </div>
           <div>
-            <p className="font-medium text-white/70">Email</p>
+            <p className="font-medium text-primary/70">Email</p>
             <a
               href={`mailto:${personalEmail}`}
               className="hover:underline active:underline mr-4 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50 focus:border-blue-400 focus:rounded transition-colors"

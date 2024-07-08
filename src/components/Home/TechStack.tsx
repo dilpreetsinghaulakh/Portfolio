@@ -80,10 +80,10 @@ function OverlayContent({
     >
       <div
         ref={overlayInnerContentRef}
-        className="max-w-6xl m-auto w-full min-h-[70%] relative flex flex-col justify-between items-center gap-10 p-8 py-16 rounded-3xl border border-white/10 bg-background" // transition-opacity duration-500" // translate-y-full transition duration-700"
+        className="max-w-6xl m-auto w-full min-h-[70%] relative flex flex-col justify-between items-center gap-10 p-8 py-16 rounded-3xl border border-primary/10 bg-background" // transition-opacity duration-500" // translate-y-full transition duration-700"
       >
         <button
-          className="absolute top-4 right-4 bg-white/10 p-2 rounded-full"
+          className="absolute top-4 right-4 bg-primary/10 p-2 rounded-full"
           onClick={() => handleOverlayClose()}
         >
           <X className="stroke-2" />

@@ -23,7 +23,7 @@ export default function HeroSection() {
           willChange: "opacity",
         },
         {
-          opacity: 1,
+          opacity: 0.7,
           duration: 1.5,
         }
       );
@@ -195,14 +195,14 @@ export default function HeroSection() {
           </span>
           <span
             id="anim-appear"
-            className="text-4xl text-white ml-2 inline-block opacity-0"
+            className="text-4xl text-primary ml-2 inline-block opacity-0"
           >
             Web Dev
           </span>
           <span id="anim-appear" className="text-3xl mx-2 opacity-0">
             +
           </span>
-          <span id="anim-appear" className="text-4xl text-white opacity-0">
+          <span id="anim-appear" className="text-4xl text-primary opacity-0">
             Student
           </span>
         </p>

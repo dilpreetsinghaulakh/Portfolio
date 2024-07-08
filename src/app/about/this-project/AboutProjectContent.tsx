@@ -13,7 +13,7 @@ export default function AboutProjectContent() {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="border border-white/5 w-fit px-2 py-1 rounded-lg hover:bg-white/5"
+            className="border border-primary/5 w-fit px-2 py-1 rounded-lg hover:bg-primary/5"
           >
             GitHub
             <ArrowUpRight className="inline w-5 mb-1 " />

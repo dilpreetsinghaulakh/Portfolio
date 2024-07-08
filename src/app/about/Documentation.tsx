@@ -132,7 +132,7 @@ export default function Documentation() {
             </button>
             <div
               ref={copiedAlertRef}
-              className="hidden opacity-0 absolute left-1/2 -translate-x-1/2 whitespace-nowrap bg-white text-black text-sm items-center gap-2 p-2 rounded transition-all duration-300"
+              className="hidden opacity-0 absolute left-1/2 -translate-x-1/2 whitespace-nowrap bg-primary text-opposite text-sm items-center gap-2 p-2 rounded transition-all duration-300"
             >
               <Clipboard className="w-4 h-4" /> Copied to clipboard
             </div>
@@ -226,7 +226,7 @@ export default function Documentation() {
           <li>
             The name is styled with a gradient text effect using the
             <SmallCodeSnippet
-              code="bg-clip-text text-transparent bg-gradient-to-b from-white/80 to-white/20"
+              code="bg-clip-text text-transparent bg-gradient-to-b from-primary/80 to-primary/20"
               language="HTML"
             />{" "}
             classes.

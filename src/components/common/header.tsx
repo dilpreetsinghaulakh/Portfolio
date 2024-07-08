@@ -48,7 +48,7 @@ function MenuContent({
   return (
     <div
       ref={content}
-      className="flex flex-col items-center justify-center gap-8 bg-black w-full h-0 transition-all duration-700"
+      className="flex flex-col items-center justify-center gap-8 bg-black text-white w-full h-0 transition-all duration-700"
     >
       <button
         className="absolute top-0 right-0 flex items-center justify-center gap-2 h-24 xl:h-36 px-8 xl:px-20 border-b border-l bg-black border-neutral-700 font-bold text-2xl"
@@ -126,7 +126,7 @@ export default function Header() {
             <Logo />
           </a>
           {usePathname() !== "/" ? (
-            <h1 className="hidden sm:block text-lg font-light text-primary-100 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
+            <h1 className="hidden sm:block text-lg font-light text-primary-100 bg-primary/5 border border-primary/10 px-4 py-2 rounded-full">
               {usePathname()}
             </h1>
           ) : null}

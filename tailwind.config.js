@@ -11,13 +11,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#04081A",
-        primary: "#FFFFFF",
+        background: "#FFFFFF",
+        primary: "#000000",
+        opposite: "#FFFFFF",
         secondary: {
-          100: "#D1D5E7",
-          200: "#D4DDFF",
+          100: "#404664",
+          200: "#314088",
         },
-        tertiary: "#262F58",
+        tertiary: "#999999",
       },
       fontFamily: {
         sans: ["Space Grotesk", "sans-serif"],
