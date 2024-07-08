@@ -34,3 +34,28 @@ body {
   padding: 1px;
   z-index: -1;
 }
+
+.bg-rainbow {
+  background: linear-gradient(
+    90deg,
+    #e3b261 0%,
+    #ef652a 14%,
+    #ff0000 29%,
+    #b924ff 50.5%,
+    #6f26e4 71%,
+    #2965f1 100%
+  );
+}
+
+.bg-rainbow-20 {
+  background: linear-gradient(180deg, #ffffffff 0%, #ffffff00 100%),
+    linear-gradient(
+      90deg,
+      #e3b26120 0%,
+      #ef652a20 14%,
+      #ff000020 29%,
+      #b924ff20 50.5%,
+      #6f26e420 71%,
+      #2965f120 100%
+    );
+}

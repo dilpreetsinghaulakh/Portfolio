@@ -17,14 +17,16 @@ function ContactForm() {
 
   if (!formId) {
     return (
-      <div className="text-center text-lg bg-primary/5 border border-primary/10 w-full h-96 px-4 flex flex-col items-center justify-center rounded-3xl">
+      <div
+        className="text-center text-lg bg-rainbow-20 !bg-origin-border border border-primary/10 w-full h-96 px-4 flex flex-col items-center justify-center rounded-3xl"
+      >
         <p>
           The contact form is not available right now. Please try again later.
         </p>
         <p className="mt-2">
           You can instead email me at{" "}
           <a
-            className="text-blue-400 hover:underline active:underline"
+            className="text-secondary-200 hover:underline active:underline"
             href={`mailto:${personalEmail}`}
           >
             {personalEmail}
@@ -40,7 +42,7 @@ function ContactForm() {
       reset();
     }, 15000);
     return (
-      <div className="h-96 w-full bg-primary/5 border border-primary/10 rounded-3xl text-center flex items-center justify-center">
+      <div className="h-96 w-full bg-rainbow-20 !bg-origin-border border border-primary/10 rounded-3xl text-center flex items-center justify-center">
         <p>
           Thank you so much for reaching out! I'll get back to you as soon as
           possible.
@@ -80,7 +82,7 @@ function ContactForm() {
   return (
     <form
       ref={formRef}
-      className="bg-primary/5 border border-primary/10 w-full h-96 p-4 rounded-3xl flex flex-col gap-4 items-center"
+      className="bg-rainbow-20 !bg-origin-border border border-primary/10 w-full h-96 p-4 rounded-3xl flex flex-col gap-4 items-center"
       onSubmit={customValidation}
     >
       <div className="flex flex-col gap-4 xl:flex-row w-full">
