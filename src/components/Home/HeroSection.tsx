@@ -40,7 +40,7 @@ export default function HeroSection() {
             y: 0,
             opacity: 1,
             duration: 0.7,
-            delay: 1 + index * 0.5,
+            delay: index * 0.5,
           }
         );
       });
@@ -54,7 +54,7 @@ export default function HeroSection() {
         {
           opacity: 1,
           duration: 1,
-          delay: 2,
+          delay: 1,
           stagger: 0.2,
         }
       );
@@ -182,7 +182,7 @@ export default function HeroSection() {
 
   const Heading = () => {
     return (
-      <div className="text-lg font-bold flex flex-col gap-4">
+      <div className="text-lg font-thin flex flex-col gap-4">
         <h3 id="anim-appear-top" className="text-secondary-100 opacity-0">
           Hey, I'm
         </h3>
@@ -212,7 +212,7 @@ export default function HeroSection() {
 
   const Subheading = () => {
     return (
-      <p id="anim-appear" className="text-secondary-100 xl:text-lg opacity-0">
+      <p id="anim-appear" className="text-secondary-100 xl:text-lg font-thin opacity-0">
         An undergraduate student passionate about web development and UI/UX
         design, eager to create something extraordinary.
       </p>
