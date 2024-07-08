@@ -1,5 +1,4 @@
 import { ArrowUpRight } from "react-feather";
-import Documentation from "../Documentation";
 
 export default function AboutProjectContent() {
   return (
@@ -28,7 +27,6 @@ export default function AboutProjectContent() {
           styles.
         </p>
       </div>
-      <Documentation />
     </div>
   );
 }
