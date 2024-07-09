@@ -4,7 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +15,7 @@ export default function CatchLine() {
 
   const [textLeftValue, setTextLeftValue] = useState(0);
 
-  useEffect(() => {
+  useGSAP(() => {
     function getTextLeftValue() {
       return textRef.current
         ? -textRef.current?.offsetWidth +
@@ -49,7 +49,7 @@ export default function CatchLine() {
             start: "top 85%",
             end: "bottom 15%",
             scrub: 1,
-            toggleActions: "play pause pause reverse",
+            toggleActions: "play none none reverse",
           },
           x: textLeftValue,
           duration: 2,
