@@ -1,173 +1,165 @@
 "use client";
 import React, { useRef, useEffect, useState, ReactNode } from "react";
-import { ExternalLink, Plus, X } from "react-feather";
+import { ArrowUpRight, ExternalLink, Plus, X } from "react-feather";
 import Overlay from "../common/Overlay";
+import MacbookMockup from "../common/MackbookMockup";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import Image from "next/image";
 
-export default function Projects() {
-  // Horizontal scroll logic Refs
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stickyParentRef = useRef<HTMLDivElement>(null);
-  const stickyChildRef = useRef<HTMLDivElement>(null);
+gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
-  // State for horizontal scroll
-  const [horizontalWidth, setHorizontalWidth] = useState(0);
-  const [scrollOffset, setScrollOffset] = useState(0);
-  const [overlayIsOpen, setOverlayIsOpen] = useState(false);
-  const [overlayContent, setOverlayContent] = useState<ReactNode>(null);
-
-  // Overlay logic Refs
-  const overlayContentRef = useRef<HTMLDivElement>(null);
-  const overlayInnerContentRef = useRef<HTMLDivElement>(null);
-
-  function calculateContentWidth() {
-    const contentWidth = stickyChildRef.current?.scrollWidth || 0;
-    const vw = window.innerWidth / 100;
-    const contentWidthInVW = contentWidth / vw;
-    return contentWidthInVW;
-  }
-
-  function calculateOffset() {
-    const parentTopOffset = stickyParentRef.current?.offsetTop || 0;
-    const parentHeight = containerRef.current?.offsetHeight || 0;
-    const offsetFactor = parentTopOffset / parentHeight;
-
-    const calculatedOffset =
-      offsetFactor * (stickyChildRef.current?.offsetWidth || 0);
-
-    return calculatedOffset;
-  } // calculate the offset of the sticky child
-
-  useEffect(() => {
-    setHorizontalWidth(calculateContentWidth());
-
-    window.addEventListener("load", () => {
-      setHorizontalWidth(calculateContentWidth());
-      setScrollOffset(calculateOffset());
-    }); // initial load if the page is already scrolled
-
-    window.addEventListener("scroll", () => {
-      setScrollOffset(calculateOffset());
-    }); // on scroll
-
-    window.addEventListener("resize", () => {
-      setHorizontalWidth(calculateContentWidth());
-      setScrollOffset(calculateOffset());
-    }); // on resize
-  }, []);
-
-  function ProjectGroup({
-    title,
-    image,
-    keyTechnologies,
-    description,
-    link,
-  }: {
+function StickyScrollDesktop({
+  dataArray,
+}: {
+  dataArray: {
     title: string;
     image: string;
     keyTechnologies: string[];
     description: string;
     link: string;
-  }) {
-    return (
-      <div className="flex flex-col items-center gap-8 justify-center h-full max-w-[100vw]">
-        <img
-          src={image}
-          alt={title}
-          className="max-w-[90vw] max-h-[60vh] rounded"
-        />
+  }[];
+}) {
+  const mockupContainer = useRef<HTMLDivElement>(null);
+  const mockupContent = useRef<HTMLDivElement>(null);
+  const outerContentContainer = useRef<HTMLDivElement>(null);
 
-        <h1 className="text-3xl">{title}</h1>
-        <p className="glass-box px-4 py-1 rounded-lg font-light">
-          {keyTechnologies.join(" • ")}
-        </p>
-        <button
-          onClick={() => {
-            handleInfoButton({ title, description, link }); // open overlay
-          }}
-          className="flex items-center gap-2 text-xl font-bold"
-        >
-          Know more
-          <div className="w-8 h-8 rounded-full glass-box p-1">
-            <Plus className="stroke-2" />
+  useGSAP(() => {
+    gsap.to(mockupContainer.current, {
+      scrollTrigger: {
+        trigger: mockupContainer.current,
+        start: "0% center",
+        end: "50% center",
+        scrub: true,
+        toggleActions: "play none none reverse",
+      },
+      width: "50%",
+      height: "50%",
+      ease: "power1.inOut",
+    });
+  }, [mockupContainer.current]);
+
+  useGSAP(() => {
+    if (!outerContentContainer.current) return;
+    gsap.utils
+      .toArray(outerContentContainer.current?.children)
+      .forEach((child, index) => {
+        if (child === outerContentContainer.current?.lastChild) return;
+
+        gsap.fromTo(
+          mockupContent.current?.children[index + 1] as Element,
+          {
+            y: "100%",
+          },
+          {
+            scrollTrigger: {
+              trigger: child as Element,
+              start: "10% bottom",
+              end: "70% bottom",
+              scrub: true,
+              toggleActions: "play none none reverse",
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power1.inOut",
+          }
+        );
+
+        if (index > 0) {
+          gsap.fromTo(
+            outerContentContainer.current?.children[index - 1] as Element,
+            {
+              opacity: 1,
+            },
+            {
+              scrollTrigger: {
+                trigger: child as Element,
+                start: "10% bottom",
+                end: "70% bottom",
+                scrub: true,
+                toggleActions: "play none none reverse",
+              },
+              opacity: 0,
+              duration: 0.5,
+              ease: "power1.inOut",
+            }
+          );
+        }
+      });
+  }, [outerContentContainer.current]);
+
+  return (
+    <>
+      <div ref={mockupContainer} className="sticky mt-16 top-12 z-20 h-fit">
+        <div className="w-full h-[90vh] flex">
+          <div className="h-fit w-full">
+            <MacbookMockup>
+              <div
+                ref={mockupContent}
+                className="h-full w-full bg-white flex items-center justify-center relative overflow-hidden"
+              >
+                <h1
+                  className="font-black text-center text-[15rem] w-fit bg-clip-text text-transparent leading-tight"
+                  style={{
+                    backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 100%),
+                linear-gradient(90deg, #E3B2614D 0%, #EF652A4D 14%, #FF00004D 29%, #B924FF4D 50.5%, #264DE44D 71%, #2965F14D 100%)`,
+                    WebkitTextStroke: "1px #0000004d",
+                  }}
+                >
+                  Projects
+                </h1>
+
+                {dataArray.map((project) => (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={967}
+                    height={628}
+                    className="w-full h-auto absolute"
+                  />
+                ))}
+              </div>
+            </MacbookMockup>
           </div>
-        </button>
-      </div>
-    );
-  }
-
-  function OverlayContent({
-    title,
-    description,
-    link,
-  }: {
-    title: string;
-    description: string;
-    link: string;
-  }) {
-    return (
-      <>
-        <h1 className="text-3xl font-semibold text-secondary-200">{title}</h1>
-        <p className="text-lg max-w-4xl text-center">{description}</p>
-        <a
-          href={link}
-          target="_blank"
-          rel="noreferrer"
-          className="bg-white text-black font-semibold px-6 py-2 rounded-lg flex gap-1 items-center hover:scale-105 active:scale-95 transition"
-        >
-          View project
-          <ExternalLink className="h-5" />
-        </a>
-      </>
-    );
-  }
-
-  function handleInfoButton({
-    title,
-    description,
-    link,
-  }: {
-    title: string;
-    description: string;
-    link: string;
-  }) {
-    setOverlayContent(
-      <div
-        ref={overlayContentRef}
-        className="backdrop-blur-none h-full w-full flex items-center bg-white/5 transition-all duration-300 py-8 px-2 overflow-y-scroll"
-      >
-        <div
-          ref={overlayInnerContentRef}
-          className="max-w-6xl m-auto w-full min-h-[70%] relative flex flex-col justify-between items-center gap-10 p-8 py-16 rounded-3xl border border-white/10 bg-background translate-y-[100%] transition duration-700"
-        >
-          <button
-            className="absolute top-4 right-4 bg-white/10 p-2 rounded-full active:scale-95 transition"
-            onClick={() => {
-              setOverlayIsOpen(false);
-              document.body.style.overflow = "auto";
-            }}
-          >
-            <X className="stroke-2" />
-          </button>
-          {/* close button */}
-          <OverlayContent title={title} description={description} link={link} />
         </div>
       </div>
-    );
 
-    setOverlayIsOpen(true);
+      <div ref={outerContentContainer} className="-mt-[30%]">
+        {dataArray.map((project) => (
+          <div className="sticky top-12 mt-32 grid grid-cols-2 grid-rows-2 h-[90vh] gap-2">
+            <div></div>
+            <div className="pl-2 flex flex-col gap-2 justify-center items-center">
+              <h2 className="text-4xl">{project.title}</h2>
+              <p className="px-4 py-1 rounded-full bg-primary text-opposite">
+                {project.keyTechnologies.join(" • ")}
+              </p>
+            </div>
+            <div className=" flex items-center text-center">
+              <p>{project.description}</p>
+            </div>
 
-    setTimeout(() => {
-      overlayContentRef.current?.classList.remove("backdrop-blur-none");
-      overlayContentRef.current?.classList.add("backdrop-blur-md");
+            <div className="flex items-center justify-center z-30">
+              <a
+                className="px-8 p-4 bg-primary text-opposite font-semibold rounded-full flex items-center gap-1 hover:gap-4 active:gap-2 transition-all"
+                href={project.link}
+                target="_blank"
+              >
+                Visit <ArrowUpRight />
+              </a>
+            </div>
+          </div>
+        ))}
 
-      overlayInnerContentRef.current?.classList.remove("translate-y-[100%]");
+        <div className="h-80"></div>
+      </div>
+    </>
+  );
+}
 
-      document.body.style.overflow = "hidden";
-    }, 0); // 0ms delay to make sure the classes are added after the element is rendered
-
-    setOverlayIsOpen(true);
-  }
-
+export default function Projects() {
   const projects: {
     title: string;
     image: string;
@@ -210,87 +202,9 @@ export default function Projects() {
     },
   ]; // project data
 
-  function ScrollContent() {
-    return (
-      <>
-        <div className="sm:min-w-[100vw] box-border w-auto p-4 flex items-center justify-center">
-          <h1
-            className="font-black text-9xl absolute -z-10 bg-clip-text text-transparent leading-tight opacity-30"
-            style={{
-              backgroundImage: `linear-gradient(90deg, #E3B261 0%, #EF652A 14%, #FF0000 29%, #B924FF 50.5%, #264DE4 71%, #2965F1 100%)`,
-            }}
-          >
-            Projects
-          </h1>
-
-          <h1
-            className="font-black text-9xl text-transparent leading-tight bg-clip-text"
-            style={{
-              WebkitTextStroke: "1px #ffffff40",
-              backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.1) 100%)`,
-            }}
-          >
-            Projects
-          </h1>
-        </div>
-        <div className="flex items-center gap-16 xl:gap-48 ">
-          {projects.map((project, index) => (
-            <ProjectGroup key={index} {...project} />
-          ))}
-        </div>
-        <div className="px-8 xl:px-32 flex flex-col items-center gap-8 justify-center h-full max-w-[100vw]">
-          <a
-            href="https://github.com/dilpreetsinghaulakh"
-            target="blank"
-            className="flex items-center justify-center active:scale-105 transition"
-          >
-            <img
-              src="/gradient_box.svg"
-              alt="{title}"
-              className="max-w-[90vw] max-h-[60vh] rounded"
-            />
-            <h1 className="text-4xl absolute flex gap-2 items-center">
-              Github <ExternalLink className="h-8 w-8" />
-            </h1>
-          </a>
-          <h2 className="text-2xl text-center">Find more on my Github</h2>
-          <p className="text-center text-sm max-w-2xl">
-            There are various more projects on my Github which were not
-            noteworthy enough to include here. <br />
-            Also I am always working on something new so you may also find
-            something new too!
-          </p>
-        </div>
-      </>
-    );
-  }
-
   return (
     <section>
-      <div
-        ref={containerRef}
-        className="absolute left-0"
-        style={{ height: `${horizontalWidth}vh` }}
-      >
-        <div
-          ref={stickyParentRef}
-          className="sticky top-0 h-screen w-screen overflow-hidden"
-        >
-          <div
-            ref={stickyChildRef}
-            style={{
-              left: -scrollOffset,
-              top: 0,
-              width: `${horizontalWidth}vw`,
-            }}
-            className="h-full flex items-center relative"
-          >
-            <ScrollContent />
-          </div>
-        </div>
-      </div>
-      <div style={{ height: `${horizontalWidth}vh` }}></div>
-      <Overlay isOpen={overlayIsOpen}>{overlayContent}</Overlay>
+      <StickyScrollDesktop dataArray={projects} />
     </section>
   );
 }
