@@ -25,6 +25,25 @@ function StickyScrollDesktop({
   const mockupContainer = useRef<HTMLDivElement>(null);
   const mockupContent = useRef<HTMLDivElement>(null);
   const outerContentContainer = useRef<HTMLDivElement>(null);
+  const imgRefs = useRef<HTMLImageElement[]>([]);
+  const [imgSrc, setImgSrc] = useState<string>("/projects_text.svg");
+  const [isSafari, setIsSafari] = useState<boolean>(false);
+
+  function IsSafari() {
+    let userAgentString = navigator.userAgent;
+    // Detect Chrome
+    let chromeAgent = userAgentString.indexOf("Chrome") > -1;
+    // Detect Safari
+    let safariAgent = userAgentString.indexOf("Safari") > -1;
+
+    // Discard Safari since it also matches Chrome
+    if (chromeAgent && safariAgent) safariAgent = false;
+    return safariAgent;
+  }
+
+  useEffect(() => {
+    setIsSafari(IsSafari());
+  }, []);
 
   useGSAP(() => {
     gsap.to(mockupContainer.current, {
@@ -35,6 +54,7 @@ function StickyScrollDesktop({
         scrub: true,
         toggleActions: "play none none reverse",
       },
+      willChange: "transform",
       width: "50%",
       height: "50%",
       ease: "power1.inOut",
@@ -43,6 +63,32 @@ function StickyScrollDesktop({
 
   useGSAP(() => {
     if (!outerContentContainer.current) return;
+
+    if (isSafari) {
+      const imgSrcArray: string[] = [
+        "/projects_text.svg",
+        ...dataArray.map((project) => project.image),
+      ];
+      gsap.utils.toArray(outerContentContainer.current?.children).forEach(
+        (child, index) => {
+          if (child === outerContentContainer.current?.lastChild) return;
+          ScrollTrigger.create({
+            trigger: child as Element,
+            start: "40% bottom",
+            end: "40% bottom",
+            toggleActions: "play none none reverse",
+            onEnter: () => {
+              setImgSrc(imgSrcArray[index + 1]);
+            },
+            onEnterBack: () => {
+              setImgSrc(imgSrcArray[index]);
+            },
+          });
+        },
+        [outerContentContainer.current]
+      );
+    }
+
     gsap.utils
       .toArray(outerContentContainer.current?.children)
       .forEach((child, index) => {
@@ -52,6 +98,7 @@ function StickyScrollDesktop({
           mockupContent.current?.children[index + 1] as Element,
           {
             y: "100%",
+            willChange: "transform",
           },
           {
             scrollTrigger: {
@@ -61,7 +108,6 @@ function StickyScrollDesktop({
               scrub: true,
               toggleActions: "play none none reverse",
             },
-            opacity: 1,
             y: 0,
             duration: 0.5,
             ease: "power1.inOut",
@@ -73,6 +119,7 @@ function StickyScrollDesktop({
             outerContentContainer.current?.children[index - 1] as Element,
             {
               opacity: 1,
+              willChange: "opacity",
             },
             {
               scrollTrigger: {
@@ -99,28 +146,45 @@ function StickyScrollDesktop({
             <MacbookMockup>
               <div
                 ref={mockupContent}
-                className="h-full w-full bg-white flex items-center justify-center relative overflow-hidden"
+                className={
+                  "h-full w-full bg-white flex items-center justify-center overflow-hidden" +
+                  (isSafari ? null : " relative")
+                }
               >
-                <h1
-                  className="font-black text-center text-[15rem] w-fit bg-clip-text text-transparent leading-tight"
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 100%),
-                linear-gradient(90deg, #E3B2614D 0%, #EF652A4D 14%, #FF00004D 29%, #B924FF4D 50.5%, #264DE44D 71%, #2965F14D 100%)`,
-                    WebkitTextStroke: "1px #0000004d",
-                  }}
-                >
-                  Projects
-                </h1>
-
-                {dataArray.map((project) => (
+                {isSafari ? (
                   <Image
-                    src={project.image}
-                    alt={project.title}
+                    src={imgSrc}
+                    alt="Project Image"
                     width={967}
                     height={628}
-                    className="w-full h-auto absolute"
+                    className="w-full h-auto"
                   />
-                ))}
+                ) : (
+                  <>
+                    <h1
+                      className="font-black text-center text-[15rem] w-fit bg-clip-text text-transparent leading-tight"
+                      style={{
+                        backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 100%),
+                linear-gradient(90deg, #E3B2614D 0%, #EF652A4D 14%, #FF00004D 29%, #B924FF4D 50.5%, #264DE44D 71%, #2965F14D 100%)`,
+                        WebkitTextStroke: "1px #0000004d",
+                      }}
+                    >
+                      Projects
+                    </h1>
+
+                    {dataArray.map((project, index) => (
+                      <Image
+                        ref={(el) => (imgRefs.current[index] = el!)}
+                        key={index}
+                        src={project.image}
+                        alt={project.title}
+                        width={967}
+                        height={628}
+                        className="w-full h-auto absolute"
+                      />
+                    ))}
+                  </>
+                )}
               </div>
             </MacbookMockup>
           </div>
@@ -128,8 +192,11 @@ function StickyScrollDesktop({
       </div>
 
       <div ref={outerContentContainer} className="-mt-[30%]">
-        {dataArray.map((project) => (
-          <div className="sticky top-12 mt-32 grid grid-cols-2 grid-rows-2 h-[90vh] gap-2">
+        {dataArray.map((project, index) => (
+          <div
+            key={index}
+            className="sticky top-12 mt-32 grid grid-cols-2 grid-rows-2 h-[90vh] gap-2 bg-background"
+          >
             <div></div>
             <div className="pl-2 flex flex-col gap-2 justify-center items-center">
               <h2 className="text-4xl">{project.title}</h2>
