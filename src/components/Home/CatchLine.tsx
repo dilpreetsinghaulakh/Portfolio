@@ -26,12 +26,6 @@ export default function CatchLine() {
     }
     if (textRef.current) {
       setTextLeftValue(getTextLeftValue());
-      console.log(
-        textRef.current.offsetWidth,
-        textLeftValue,
-        window.innerWidth,
-        imgRef.current?.offsetWidth || 0
-      );
 
       window.addEventListener("resize", () => {
         setTextLeftValue(getTextLeftValue());
