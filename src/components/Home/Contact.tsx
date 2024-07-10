@@ -21,7 +21,7 @@ export default function Contact() {
           <a
             href="mailto:dilpreetsinghaulakh@icloud.com"
             aria-label="Email"
-            className="p-4 glass-box rounded-full hover:bg-primary/10 transition-all"
+            className="p-4 bg-primary/5 border border-primary/10 rounded-full hover:bg-primary/10 transition-all"
           >
             <Mail />
           </a>
@@ -29,7 +29,7 @@ export default function Contact() {
             href="https://www.linkedin.com/in/dilpreetsinghaulakh/"
             target="_blank"
             aria-label="LinkedIn"
-            className="p-4 glass-box rounded-full hover:bg-primary/10 transition-all"
+            className="p-4 bg-primary/5 border border-primary/10 rounded-full hover:bg-primary/10 transition-all"
           >
             <Linkedin />
           </a>
@@ -37,7 +37,7 @@ export default function Contact() {
             href="https://github.com/dilpreetsinghaulakh"
             target="_blank"
             aria-label="Github"
-            className="p-4 glass-box rounded-full hover:bg-primary/10 transition-all"
+            className="p-4 bg-primary/5 border border-primary/10 rounded-full hover:bg-primary/10 transition-all"
           >
             <GitHub />
           </a>
