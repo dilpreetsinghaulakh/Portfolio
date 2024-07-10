@@ -1,7 +1,6 @@
 "use client";
-import React, { useRef, useEffect, useState, ReactNode } from "react";
-import { ArrowUpRight, ExternalLink, Plus, X } from "react-feather";
-import Overlay from "../common/Overlay";
+import React, { useRef, useEffect, useState } from "react";
+import { ArrowUpRight } from "react-feather";
 import MacbookMockup from "../common/MackbookMockup";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -11,7 +10,7 @@ import Image from "next/image";
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
-function StickyScrollDesktop({
+function StickyScroll({
   dataArray,
 }: {
   dataArray: {
@@ -23,6 +22,7 @@ function StickyScrollDesktop({
   }[];
 }) {
   const mockupContainer = useRef<HTMLDivElement>(null);
+  const mockupGridContainer = useRef<HTMLDivElement>(null);
   const mockupContent = useRef<HTMLDivElement>(null);
   const outerContentContainer = useRef<HTMLDivElement>(null);
   const imgRefs = useRef<HTMLImageElement[]>([]);
@@ -45,19 +45,56 @@ function StickyScrollDesktop({
     setIsSafari(IsSafari());
   }, []);
 
+  window.addEventListener("resize", () => {
+    ScrollTrigger.refresh();
+  });
+
   useGSAP(() => {
-    gsap.to(mockupContainer.current, {
-      scrollTrigger: {
-        trigger: mockupContainer.current,
-        start: "0% center",
-        end: "50% center",
-        scrub: true,
-        toggleActions: "play none none reverse",
-      },
-      willChange: "transform",
-      width: "50%",
-      height: "50%",
-      ease: "power1.inOut",
+    const animations = gsap.matchMedia();
+
+    animations.add("(min-width: 640px)", () => {
+      gsap.set(mockupContainer.current, {
+        y: "10vw",
+      });
+      gsap.fromTo(
+        mockupContainer.current,
+        {
+          willChange: "transform",
+          width: "100%",
+          y: "10vw",
+        },
+        {
+          scrollTrigger: {
+            trigger: mockupContainer.current,
+            start: "0% center",
+            end: "50% center",
+            scrub: true,
+            toggleActions: "play none none reverse",
+          },
+          willChange: "transform",
+          width: "50%",
+          y: "0",
+          height: "50%",
+          ease: "power1.inOut",
+        }
+      );
+    });
+
+    animations.add("(max-width: 640px)", () => {
+      gsap.to(mockupContainer.current, {
+        scrollTrigger: {
+          trigger: mockupContainer.current,
+          start: "0% center",
+          end: "100% center",
+          scrub: true,
+          toggleActions: "play none none reverse",
+        },
+        willChange: "transform",
+        scale: 0.8,
+        top: "-2rem",
+        height: "100vh",
+        ease: "power1.inOut",
+      });
     });
   }, [mockupContainer.current]);
 
@@ -140,9 +177,12 @@ function StickyScrollDesktop({
 
   return (
     <>
-      <div ref={mockupContainer} className="sticky mt-16 top-12 z-20 h-fit">
-        <div className="w-full h-[90vh] flex">
-          <div className="h-fit w-full">
+      <div ref={mockupContainer} className="sticky mt-16 top-12 z-20">
+        <div
+          ref={mockupGridContainer}
+          className="w-full h-[90vh] grid sm:grid-rows-2 sm:items-center"
+        >
+          <div className="h-fit w-full ">
             <MacbookMockup>
               <div
                 ref={mockupContent}
@@ -188,6 +228,7 @@ function StickyScrollDesktop({
               </div>
             </MacbookMockup>
           </div>
+          <div></div>
         </div>
       </div>
 
@@ -195,7 +236,7 @@ function StickyScrollDesktop({
         {dataArray.map((project, index) => (
           <div
             key={index}
-            className="sticky top-12 mt-32 grid grid-cols-2 grid-rows-2 h-[90vh] gap-2 bg-background"
+            className="sticky top-12 mt-32 grid pt-[30vw] sm:pt-0 sm:grid-cols-2 sm:grid-rows-2 h-[90vh] gap-2 bg-background"
           >
             <div></div>
             <div className="pl-2 flex flex-col gap-2 justify-center items-center">
@@ -208,9 +249,9 @@ function StickyScrollDesktop({
               <p>{project.description}</p>
             </div>
 
-            <div className="flex items-center justify-center z-30">
+            <div className="flex items-center justify-center relative">
               <a
-                className="px-8 p-4 bg-primary text-opposite font-semibold rounded-full flex items-center gap-1 hover:gap-4 active:gap-2 transition-all"
+                className="px-8 p-4 absolute bg-primary text-opposite font-semibold rounded-full flex items-center gap-1 hover:gap-4 active:gap-2 transition-all"
                 href={project.link}
                 target="_blank"
               >
@@ -271,7 +312,7 @@ export default function Projects() {
 
   return (
     <section>
-      <StickyScrollDesktop dataArray={projects} />
+      <StickyScroll dataArray={projects} />
     </section>
   );
 }
