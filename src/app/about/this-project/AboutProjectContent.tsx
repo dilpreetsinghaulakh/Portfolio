@@ -2,7 +2,7 @@ import { ArrowUpRight } from "react-feather";
 
 export default function AboutProjectContent() {
   return (
-    <div className="flex flex-col gap-12 mt-4 text-secondary-100">
+    <div className="flex flex-col justify-center gap-12 mt-4 text-secondary-100 min-h-[40vh]">
       <div className="text-lg">
         <p>
           This project is a personal portfolio website built using Next.js,
