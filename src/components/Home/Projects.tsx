@@ -45,10 +45,6 @@ function StickyScroll({
     setIsSafari(IsSafari());
   }, []);
 
-  window.addEventListener("resize", () => {
-    ScrollTrigger.refresh();
-  });
-
   useGSAP(() => {
     const animations = gsap.matchMedia();
 
@@ -232,7 +228,7 @@ function StickyScroll({
         </div>
       </div>
 
-      <div ref={outerContentContainer} className="-mt-[30%]">
+      <div ref={outerContentContainer} className="-mt-[100%] md:-mt-[30%]">
         {dataArray.map((project, index) => (
           <div
             key={index}
@@ -277,7 +273,7 @@ export default function Projects() {
   }[] = [
     {
       title: "CV Maker",
-      image: "/cv_maker_ss.jpeg",
+      image: "/cv_maker_ss.webp",
       keyTechnologies: ["React", "TailwindCSS"],
       description: `A simple CV maker app built with React and TailwindCSS.
       This was built as a solution to a problem in The Odin Project's curriculum.
@@ -288,7 +284,7 @@ export default function Projects() {
     },
     {
       title: "Todo Dump",
-      image: "/todo_dump_ss.png",
+      image: "/todo_dump_ss.webp",
       keyTechnologies: ["✨ Pure JavaScript"],
       description: `A todo app built only with pure vanilla JavaScript.
       This app does not use any framework.
@@ -300,7 +296,7 @@ export default function Projects() {
     },
     {
       title: "Weatheeer App",
-      image: "/weatheeer_ss.jpeg",
+      image: "/weatheeer_ss.webp",
       keyTechnologies: ["Webpack", "JavaScript"],
       description: `A simple weather app built with Webpack and JavaScript.
       The app fetches weather data from the OpenWeather API and displays it to the user.
