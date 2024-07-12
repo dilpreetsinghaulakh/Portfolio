@@ -167,6 +167,26 @@ function StickyScroll({
               ease: "power1.inOut",
             }
           );
+
+          gsap.fromTo(
+            child as Element,
+            {
+              backgroundColor: "rgba(255,255,255,0)",
+              willChange: "opacity",
+            },
+            {
+              scrollTrigger: {
+                trigger: child as Element,
+                start: "10% bottom",
+                end: "70% bottom",
+                scrub: true,
+                toggleActions: "play none none reverse",
+              },
+              backgroundColor: "rgba(255,255,255,1)",
+              duration: 0.5,
+              ease: "power1.inOut",
+            }
+          );
         }
       });
   }, [outerContentContainer.current]);
