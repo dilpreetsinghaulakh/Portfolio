@@ -133,8 +133,8 @@ export default function ContactPage() {
       </Head>
       <main className="flex flex-col gap-8 items-center justify-center min-h-[calc(100vh-6rem)] xl:min-h-[calc(100vh-9rem)] py-2">
         <ContactForm />
-        <div className="p-4 border border-primary/10 rounded-full flex gap-4 items-center text-sm xl:text-base">
-          <div className="w-12 h-12 xl:w-14 xl:h-14 bg-lime-300 text-lime-900 p-4 rounded-full flex items-center justify-center">
+        <div className="p-3 border border-primary/10 rounded-full flex gap-4 items-center text-sm xl:text-base">
+          <div className="w-12 h-12 p-3  xl:w-14 xl:h-14 xl:p4 bg-lime-300 text-lime-900 rounded-full flex items-center justify-center">
             <Mail />
           </div>
           <div>
