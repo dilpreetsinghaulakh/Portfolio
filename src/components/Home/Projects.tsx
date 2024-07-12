@@ -167,6 +167,26 @@ function StickyScroll({
               ease: "power1.inOut",
             }
           );
+
+          gsap.fromTo(
+            child as Element,
+            {
+              backgroundColor: "rgba(255,255,255,0)",
+              willChange: "opacity",
+            },
+            {
+              scrollTrigger: {
+                trigger: child as Element,
+                start: "10% bottom",
+                end: "70% bottom",
+                scrub: true,
+                toggleActions: "play none none reverse",
+              },
+              backgroundColor: "rgba(255,255,255,1)",
+              duration: 0.5,
+              ease: "power1.inOut",
+            }
+          );
         }
       });
   }, [outerContentContainer.current]);
@@ -235,13 +255,13 @@ function StickyScroll({
             className="sticky top-12 mt-32 grid pt-[30vw] sm:pt-0 sm:grid-cols-2 sm:grid-rows-2 h-[90vh] gap-2 bg-background"
           >
             <div></div>
-            <div className="pl-2 flex flex-col gap-2 justify-center items-center">
+            <div className="pl-2 flex flex-col gap-4 justify-center items-center">
               <h2 className="text-4xl">{project.title}</h2>
-              <p className="px-4 py-1 rounded-full bg-primary text-opposite">
+              <p className="px-4 py-1 rounded-full border border-primary/10 shadow-lg shadow-secondary-200/10 text-sm">
                 {project.keyTechnologies.join(" • ")}
               </p>
             </div>
-            <div className=" flex items-center text-center">
+            <div className="flex items-center">
               <p>{project.description}</p>
             </div>
 

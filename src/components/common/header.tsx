@@ -37,7 +37,7 @@ function MenuContent({
       <a
         ref={linkRef}
         href={href}
-        className="text-6xl opacity-0 transition-opacity duration-700"
+        className="text-5xl xl:text-6xl opacity-0 transition-opacity duration-700"
         onClick={() => setIsMenuOpen(false)}
       >
         {children}
@@ -57,6 +57,7 @@ function MenuContent({
           content.current?.classList.add("opacity-0");
           content.current?.classList.add("h-0");
           content.current?.classList.add("overflow-hidden");
+          document.body.style.overflow = "auto";
           setTimeout(() => {
             setIsMenuOpen(false);
           }, 700);
@@ -141,6 +142,7 @@ export default function Header() {
             className="h-full flex items-center space-x-4 px-8 xl:px-20 border-l border-tertiary"
             onClick={() => {
               setIsMenuOpen(true);
+              document.body.style.overflow = "hidden";
             }}
           >
             {MenuIcon}
